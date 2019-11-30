@@ -7,7 +7,7 @@ RUN apk add --no-cache ca-certificates
 RUN apk add --no-cache \
     ruby ruby-irb ruby-etc ruby-webrick ruby-json
     
-ARG VERSION
+ARG VERSION=1,7,4
 
 RUN apk add --no-cache --virtual build-dependencies build-base ruby-dev \
  && echo 'gem: --no-document' >> /etc/gemrc \

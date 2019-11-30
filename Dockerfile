@@ -16,8 +16,8 @@ RUN apk add --no-cache --virtual build-dependencies build-base ruby-dev \
  && fluent-gem install fluent-plugin-elasticsearch \
  && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem
 
-COPY docker/fluentd/run.sh /startup/run.sh
-COPY docker/fluentd/fluent.conf /etc/fluent/fluent.template
+COPY run.sh /startup/run.sh
+COPY fluent.conf /etc/fluent/fluent.template
 RUN chmod +x /startup/run.sh
 
 EXPOSE 24224/tcp

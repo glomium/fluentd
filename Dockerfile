@@ -1,4 +1,4 @@
-FROM alpine:3.10.3
+FROM alpine:3.11.2
 MAINTAINER Sebastian Braun <sebastian.braun@fh-aachen.de>
 # base alpine template
 
@@ -6,7 +6,7 @@ MAINTAINER Sebastian Braun <sebastian.braun@fh-aachen.de>
 RUN apk add --no-cache \
     ruby ruby-irb ruby-etc ruby-webrick ruby-json
     
-ARG VERSION=1.7.4
+ARG VERSION=1.8.1
 
 RUN apk add --no-cache --virtual build-dependencies build-base ruby-dev \
  && echo 'gem: --no-document' >> /etc/gemrc \

@@ -6,7 +6,7 @@ MAINTAINER Sebastian Braun <sebastian.braun@fh-aachen.de>
 RUN apk add --no-cache \
     ruby ruby-irb ruby-etc ruby-webrick ruby-json
     
-ARG VERSION=1.9.0
+ARG VERSION=1.9.1
 
 RUN apk add --no-cache --virtual build-dependencies build-base ruby-dev \
  && echo 'gem: --no-document' >> /etc/gemrc \

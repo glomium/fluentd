@@ -5,7 +5,7 @@ RUN apk add --no-cache \
     ruby ruby-irb ruby-etc ruby-webrick ruby-json
 
 # https://rubygems.org/gems/fluentd
-ARG VERSION=1.9.3
+ARG VERSION=1.11.1
 # https://rubygems.org/gems/fluent-plugin-mqtt-io
 ARG PLUGIN_MQTT=0.4.4
 

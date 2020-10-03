@@ -1,3 +1,3 @@
 # fluentd
 
-Latest fluentd installation on alpine linux
+Latest fluentd installation on ubuntu:lates

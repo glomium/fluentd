@@ -1,26 +1,45 @@
-FROM alpine:3.11.3
+ARG UBUNTU=rolling
+FROM ubuntu:$UBUNTU
 MAINTAINER Sebastian Braun <sebastian.braun@fh-aachen.de>
 
-RUN apk add --no-cache \
-    ruby ruby-irb ruby-etc ruby-webrick ruby-json
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && apt-get install --no-install-recommends -y -q \
+    ruby \
+    ruby-http-parser.rb \
+    ruby-json \
+    ruby-msgpack \
+    ruby-serverengine \
+    ruby-sigdump \
+    ruby-strptime \
+    ruby-tzinfo \
+    ruby-yajl \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 # https://rubygems.org/gems/fluentd
-ARG VERSION=1.11.1
+ARG VERSION=1.11.3
 # https://rubygems.org/gems/fluent-plugin-mqtt-io
 ARG PLUGIN_MQTT=0.4.4
 
-RUN apk add --no-cache --virtual build-dependencies build-base ruby-dev \
+RUN apt-get update && apt-get install --no-install-recommends -y -q \
+    ruby-dev \
+    build-essential \
  && echo 'gem: --no-document' >> /etc/gemrc \
  && gem install fluentd -v $VERSION \
  && gem install fluent-plugin-mqtt-io -v $PLUGIN_MQTT \
- && apk del build-dependencies \
  && fluent-gem install fluent-plugin-elasticsearch \
- && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem
+ && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem \
+ && apt-get purge -y \
+    ruby-dev \
+    build-essential \
+ && apt-get autoremove -y \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
-COPY run.sh /startup/run.sh
+COPY entrypoint.sh /entrypoint.sh
 COPY fluent.conf /etc/fluent/fluent.template
-RUN chmod +x /startup/run.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 24224/tcp
 
-ENTRYPOINT ["/startup/run.sh"]
+ENTRYPOINT ["/entrypoint.sh"]

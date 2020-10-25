@@ -23,6 +23,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y -q \
 ARG VERSION=1.11.4
 # https://rubygems.org/gems/fluent-plugin-mqtt-io
 ARG PLUGIN_MQTT=0.4.4
+# https://rubygems.org/gems/fluent-plugin-elasticsearch
+ARG PLUGIN_ELASTICSEARCH=4.2.2
 
 RUN apt-get update && apt-get install --no-install-recommends -y -q \
     ruby-dev \
@@ -30,7 +32,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y -q \
  && echo 'gem: --no-document' >> /etc/gemrc \
  && gem install fluentd -v $VERSION \
  && gem install fluent-plugin-mqtt-io -v $PLUGIN_MQTT \
- && fluent-gem install fluent-plugin-elasticsearch \
+ && gem install fluent-plugin-elasticsearch -v $PLUGIN_ELASTICSEARCH \
  && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem \
  && apt-get purge -y \
     ruby-dev \

@@ -26,10 +26,13 @@ ARG PLUGIN_MQTT=0.4.4
 # https://rubygems.org/gems/fluent-plugin-elasticsearch
 ARG PLUGIN_ELASTICSEARCH=4.2.2
 
+# TODO: we use HTTP for rubygems.org instead of HTTPS, as arm/v7 has problems with SSL certificates
+# TODO: perhabs we can add :ssl_verify_mode: 0 to /etc/gemrc and change the 0 according to the architecture
 RUN apt-get update && apt-get install --no-install-recommends -y -q \
     ruby-dev \
     build-essential \
  && echo 'gem: --no-document' >> /etc/gemrc \
+ && echo ':ssl_verify_mode: 0' >> /etc/gemrc \
  && gem install fluentd -v $VERSION \
  && gem install fluent-plugin-mqtt-io -v $PLUGIN_MQTT \
  && gem install fluent-plugin-elasticsearch -v $PLUGIN_ELASTICSEARCH \
@@ -41,10 +44,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y -q \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-COPY entrypoint.sh /entrypoint.sh
-COPY fluent.conf /etc/fluent/fluent.template
-RUN chmod +x /entrypoint.sh
+# COPY entrypoint.sh /entrypoint.sh
+# RUN chmod +x /entrypoint.sh
+COPY fluent.conf /etc/fluent/fluent.conf
 
 EXPOSE 24224/tcp
 
-ENTRYPOINT ["/entrypoint.sh"]
+# ENTRYPOINT ["/entrypoint.sh"]
+CMD ["fluentd", "--suppress-config-dump", "--no-supervisor", "-q"]

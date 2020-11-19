@@ -1,9 +1,10 @@
+# vim:set ft=dockerfile:
 ARG UBUNTU=rolling
 FROM ubuntu:$UBUNTU
 MAINTAINER Sebastian Braun <sebastian.braun@fh-aachen.de>
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV LANG en_US.utf8
+ENV LANG en_US.UTF-8
 
 RUN apt-get update && apt-get install --no-install-recommends -y -q \
     ca-certificates \
@@ -20,7 +21,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y -q \
  && rm -rf /var/lib/apt/lists/*
 
 # https://rubygems.org/gems/fluentd
-ARG VERSION=1.11.4
+ARG VERSION=1.11.5
 # https://rubygems.org/gems/fluent-plugin-mqtt-io
 ARG PLUGIN_MQTT=0.4.4
 # https://rubygems.org/gems/fluent-plugin-elasticsearch

@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y -q \
  && rm -rf /var/lib/apt/lists/*
 
 # https://rubygems.org/gems/fluentd
-ARG VERSION=1.12.3
+ARG VERSION=1.13.3
 # https://rubygems.org/gems/fluent-plugin-mqtt-io
 ARG PLUGIN_MQTT=0.5.0
 # https://rubygems.org/gems/fluent-plugin-elasticsearch

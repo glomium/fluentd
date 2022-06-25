@@ -25,7 +25,7 @@ ARG VERSION=1.14.6
 # https://rubygems.org/gems/fluent-plugin-mqtt-io
 ARG PLUGIN_MQTT=0.5.0
 # https://rubygems.org/gems/fluent-plugin-elasticsearch
-ARG PLUGIN_ELASTICSEARCH=5.2.2
+ARG PLUGIN_ELASTICSEARCH=5.2.3
 
 # TODO: we use HTTP for rubygems.org instead of HTTPS, as arm/v7 has problems with SSL certificates
 # TODO: perhabs we can add :ssl_verify_mode: 0 to /etc/gemrc and change the 0 according to the architecture

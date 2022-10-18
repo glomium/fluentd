@@ -21,11 +21,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y -q \
  && rm -rf /var/lib/apt/lists/*
 
 # https://rubygems.org/gems/fluentd
-ARG VERSION=1.14.6
+ARG VERSION=1.15.3
 # https://rubygems.org/gems/fluent-plugin-mqtt-io
 ARG PLUGIN_MQTT=0.5.0
 # https://rubygems.org/gems/fluent-plugin-elasticsearch
-ARG PLUGIN_ELASTICSEARCH=5.2.3
+ARG PLUGIN_ELASTICSEARCH=5.2.4
 
 # TODO: we use HTTP for rubygems.org instead of HTTPS, as arm/v7 has problems with SSL certificates
 # TODO: perhabs we can add :ssl_verify_mode: 0 to /etc/gemrc and change the 0 according to the architecture
